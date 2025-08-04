@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
+    </head>
+    <body>
+        Hello
+        <form id="dynamic-input">
+            <button id="add-button">Add</button>
+            <div id="inputs">
+                <div class="input-container">
+                    <input id="input-0" type="text" name="input-0"/>
+                    <button id="remove-button">Remove</button>
+                </div>
+            </div>
+            <button id="submit-button" type="submit">Сохранить</button>
+        </form>
+    </body>
+</html>
