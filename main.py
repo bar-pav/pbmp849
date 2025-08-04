@@ -5,12 +5,20 @@ import json
 
 app = Flask(__name__)
 
-def get_db_connection():
+
+app.config['POSTGRES_HOST'] = 'localhost'
+app.config['POSTGRES_USER'] = 'postgres'
+app.config['POSTGRES_PASSWORD'] = '1234'
+app.config['POSTGRES_DB_NAME'] = 'flask_db'
+app.config['POSTGRES_FLASK_TABLE'] = 'flask_table'
+
+
+def get_db_connection(database=None):
     conn = psycopg2.connect(
-        host='localhost',
-        database='flask_db',
-        user="postgres",
-        password="1234",
+        host=app.config['POSTGRES_HOST'],
+        database=database or app.config['POSTGRES_DB_NAME'],
+        user=app.config['POSTGRES_USER'],
+        password=app.config['POSTGRES_PASSWORD'],
     )
     return conn
 
@@ -25,7 +33,7 @@ def form_submit():
     conn = get_db_connection()
     cur = conn.cursor()
     try:
-        cur.execute("INSERT INTO form_data (data) VALUES (%s);", (json.dumps(form_data),))
+        cur.execute("INSERT INTO flask_table (data) VALUES (%s);", (json.dumps(form_data),))
         conn.commit()
         # return redirect(url_for('view_data'))
         return {'status': 'OK', 'redirectURL': url_for('view_data')}
@@ -43,7 +51,7 @@ def view_data():
     cur = conn.cursor()
 
     try:
-        cur.execute('SELECT * FROM form_data;')
+        cur.execute('SELECT * FROM flask_table;')
         data = cur.fetchall()
         print(data)
         return render_template('list.html', dataset=data)
@@ -55,4 +63,4 @@ def view_data():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0')
