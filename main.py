@@ -1,15 +1,15 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for
 import psycopg2
-import json
-
+import config
 
 app = Flask(__name__)
 
 
-app.config['POSTGRES_HOST'] = 'localhost'
-app.config['POSTGRES_USER'] = 'postgres'
-app.config['POSTGRES_PASSWORD'] = '1234'
-app.config['POSTGRES_DB_NAME'] = 'flask_db'
+app.config['POSTGRES_HOST'] = config.POSTGRES_HOST
+app.config['POSTGRES_USER'] = config.POSTGRES_USER
+app.config['POSTGRES_PASSWORD'] = config.POSTGRES_PASSWORD
+app.config['POSTGRES_DB_NAME'] = config.POSTGRES_DB_NAME
 app.config['POSTGRES_FLASK_TABLE'] = 'flask_table'
 
 
@@ -42,8 +42,6 @@ def form_submit():
     finally:
         cur.close()
         conn.close()
-
-
 
 @app.route("/list/")
 def view_data():

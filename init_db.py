@@ -1,3 +1,5 @@
+"""Данный файл нужно выполеить при развертывании через Docker (Альтернатива ручному созданию БД через CLI)"""
+
 import psycopg2
 from main import app, get_db_connection
 
@@ -19,7 +21,6 @@ finally:
     cursor.close()
     conn.close()
 
-
 try:
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -35,4 +36,3 @@ except Exception as e:
 finally:
     cursor.close()
     conn.close()
-# cursor.execute('DROP TABLE IF EXISTS form_data')
