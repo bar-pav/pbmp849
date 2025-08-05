@@ -60,7 +60,8 @@ peer на md5.
         proxy_set_header X-Forwarded-Proto $scheme;
        }}
 
-  презагпустить службу nging
+  презагпустить службу nginx
+
   ```sudo systemctl restart nginx```
 
 10. добавть файл config.py, содержаший переменные для подключения к ДБ
